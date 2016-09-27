@@ -242,7 +242,7 @@ def greenPixelCounter(img, lowerhue, upperhue, minsat):
             
     greenHuesArray = np.array(greenHues)
 
-    return count, possible, (count/float(possible))*100, greenHuesArray.mean(), hues.mean(),  hues.std(), hues.var(), hues.mean()/hues.var(), DGCIarray.mean(), satArray.mean(), valArray.mean(), pixelDiversity
+    return count, possible, (count/float(possible))*100, greenHuesArray.mean(), hues.mean(),  hues.std(), hues.var(), hues.var()/hues.mean(), DGCIarray.mean(), satArray.mean(), valArray.mean(), pixelDiversity
     
 def openImage(imageLocation):
     '''Imaged is opend from a given location so it can analyzed in subsequent 
@@ -313,7 +313,7 @@ def analyzeAndWriteToFile(path, compress, lowerHue, upperHue, baseWidth):
     CSVFile = createCSVFile(newPath)
     
     writer = csv.writer(CSVFile, lineterminator = "\n")
-    writer.writerow(("ImagePath", "ImageName", "GreenPixels", "TotalPixels","PercentGreen", "AverageGreen", "AverageHue","HueStdDev", "HueVar", "HueMean:VarRatio", "DGCI", "MeanSaturation", "MeanValue", "PixelDiversity"))
+    writer.writerow(("ImagePath", "ImageName", "GreenPixels", "TotalPixels","PercentGreen", "AverageGreen", "AverageHue","HueStdDev", "HueVar", "HueVar:MeanRatio", "DGCI", "MeanSaturation", "MeanValue", "PixelDiversity"))
 
     counter = 0
     for image in imageList:
