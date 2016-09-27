@@ -83,21 +83,36 @@ Compression will not occur and analysis will proceed with uncompressed images.
 </ul>
 
 <p>Table 1.  Variables saved to csv file following analysis of images by pyGreenTurf.
-Variable    Definition
-ImagePath   Full path to the image file.  Ex. C:/usr/local/bin/DMC001.jpg
-ImageName   Name of the imaged analyzed excluding the path.  Ex. DMC001.jpg
-GreenPixels Number of pixels counted from the image contained within the defined hue and saturation range. 
-TotalPixels Total number of pixels contained in the image.
-PercentGreen    Percentage of pixels within the defined hue and saturation range.  Calculated as (GreenPixels/TotalPixels)*100
-AverageGreen    Average hue of only pixels contained within the defined hue and saturation range.
-AverageHue  Average hue of all pixels in the image.
-HueStdDev   Standard deviation of all pixels in the image.
-HueVar  Variance of all pixels in the image.
-HueMean:VarRatio    Average hue to variance ratio for all pixels in the image.  Calculated as AverageHue/HueVar.
-DGCI    Dark Green Color Index as defined by Karcher and Richardson (2003). DGCI is calculated for each individual pixel contained in the image and then average across all pixels for the image.                                                 DGCI = ((hue -60)/60)) + (1.0 - saturation) + (1.0 - value)/3.0
-MeanSat Average saturation for all pixels contained in the image.
-MeanValue   Average value (also known as brightness) for all pixels contained in the image.
-PixelDiversity  The average absolute difference in pixel hue values for 10,000 randomly selected pixels in the image.  PixelDiversity is calculated by randomly selecting two pixels from an image and determining the absolute hue difference between the two pixels.  The second pixel is retained and a third pixel is selected at random and the absolute hue difference is measured.  Next the third is retained, a fourth is selected,, the absolute difference is calculated, and the process is repeated for 10,000 pixel selections. </p>
+Variable    Definition</p>
+
+<p>ImagePath   Full path to the image file.  Ex. C:/usr/local/bin/DMC001.jpg</p>
+
+<p>ImageName   Name of the imaged analyzed excluding the path.  Ex. DMC001.jpg</p>
+
+<p>GreenPixels Number of pixels counted from the image contained within the defined hue and saturation range. </p>
+
+<p>TotalPixels Total number of pixels contained in the image.</p>
+
+<p>PercentGreen    Percentage of pixels within the defined hue and saturation range.  Calculated as (GreenPixels/TotalPixels)*100</p>
+
+<p>AverageGreen    Average hue of only pixels contained within the defined hue and saturation range.</p>
+
+<p>AverageHue  Average hue of all pixels in the image.</p>
+
+<p>HueStdDev   Standard deviation of all pixels in the image.</p>
+
+<p>HueVar  Variance of all pixels in the image.</p>
+
+<p>HueMean:VarRatio    Average hue to variance ratio for all pixels in the image.  Calculated as AverageHue/HueVar.</p>
+
+<p>DGCI    Dark Green Color Index as defined by Karcher and Richardson (2003). DGCI is calculated for each individual pixel contained in the image and then average across all pixels for the image.<br>
+             DGCI = ((hue -60)/60)) + (1.0 - saturation) + (1.0 - value)/3.0</p>
+
+<p>MeanSat Average saturation for all pixels contained in the image.</p>
+
+<p>MeanValue   Average value (also known as brightness) for all pixels contained in the image.</p>
+
+<p>PixelDiversity  The average absolute difference in pixel hue values for 10,000 randomly selected pixels in the image. PixelDiversity is calculated by randomly selecting two pixels from an image and determining the absolute hue difference between the two pixels.  The second pixel is retained and a third pixel is selected at random and the absolute hue difference is measured.  Next the third is retained, a fourth is selected,, the absolute difference is calculated, and the process is repeated for 10,000 pixel selections. </p>
       </section>
     </div>
 
