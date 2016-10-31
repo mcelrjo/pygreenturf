@@ -204,6 +204,15 @@ def createImageList(path):
     return imageList, listdir
 
 def greenPixelCounter(img, lowerhue, upperhue, minsat):
+    '''greenPixelCounter counts the number of pixels based on the defined minimum 
+    hue setting (lower hue), maximum hue setting (upperhue), and minimum saturation (minsat).
+    img (the image file imported by Pillow Image) is converted to a numpy array
+    and then analyzed.
+    lowerhue: INT or FLOAT, 0 to 360, minimum hue value 
+    upperhue: INT or FLOAT, maximum hue value
+    minsat: FLOAT, 0.0 to 1.0, minimum saturation value.  Pixels will be counted
+    from this minimum value to 1.0
+    '''
     
     imgArray = np.array(img)
     
@@ -273,33 +282,46 @@ def createCSVFile(path):
     return f 
     
 def randomPixelJumper(img, imgArray):
-    #img = Image.open(image)
+    '''randomPixelJumper is a stochastic algorithm for calculating that average 
+    variation across all pixels in an image.  Random pixels are selected and compared 
+    for a total of 10000 pixel comparisons. 
+    img: image file imported by pillow image
+    imgArray: numpy array of imported image file
     
-    #imgArray = np.array(img)
+    '''
+    x = random.randint(0, img.size[1]-1) #select a random x location in the array
+    y = random.randint(0, img.size[0]-1) #select a random y location in the array
     
-    x = random.randint(0, img.size[1])
-    y = random.randint(0, img.size[0])
-    
+    #calculate the hsv for the first random position
     h,s,v = colorsys.rgb_to_hsv(float(imgArray[x,y,0])/255., float(imgArray[x,y,1])/255., float(imgArray[x,y,2])/255.)
-    hue  = h * 360.0
-    hueDiffs = []
+    hue  = h * 360.0 #calculate the h value for the first random pixel
+    hueDiffs = []  #initialize a list to store the differences in hue values for random pixels
 
     for i in range(10000):
         
-        x = random.randint(0, img.size[1]-1)
-        y = random.randint(0, img.size[0]-1)
+        x = random.randint(0, img.size[1]-1) #select a second value to compare to the first
+        y = random.randint(0, img.size[0]-1) #select a second value to compare to the first
         
-        h,s,v = colorsys.rgb_to_hsv(float(imgArray[x,y,0])/255., float(imgArray[x,y,1])/255., float(imgArray[x,y,2])/255.)
-        newHue = h*360.0
-        hueDiffs.append(abs(hue-newHue))
-        hue = newHue
+        h,s,v = colorsys.rgb_to_hsv(float(imgArray[x,y,0])/255., float(imgArray[x,y,1])/255., float(imgArray[x,y,2])/255.) #calcuate hsv for second pixel
+        newHue = h*360.0 #calcuate the hue value for the second pixel
+        hueDiffs.append(abs(hue-newHue)) #calcuate absolute value difference between the two pixels and append to the list
+        hue = newHue #now make the second pixel the new first pixel and re-run the loop
         
-    hueDiffsArray = np.array(hueDiffs)
+    hueDiffsArray = np.array(hueDiffs) #convert the list to an array
         
-    return hueDiffsArray.mean()
+    return hueDiffsArray.mean() #return the calcuated mean for all differences
     
-def analyzeAndWriteToFile(path, compress, lowerHue, upperHue, baseWidth):
-    
+def analyzeAndWriteToFile(path, compress, lowerHue, upperHue, minSat, baseWidth):
+    '''Primary function that intergrates all other functions to run the 
+    complete script.  
+    path: STR, the original input path to the original images
+    compress:  boolean, True = new file created to which images are stored and
+    compressed into.  False = original images will be analyzed.
+        owerhue: INT or FLOAT, 0 to 360, minimum hue value 
+    upperhue: INT or FLOAT, maximum hue value
+    minsat: FLOAT, 0.0 to 1.0, minimum saturation value.  Pixels will be counted
+    from this minimum value to 1.0
+    '''
     if compress == True:
         newPath = generateNewPath(path, baseWidth)
     else: 
@@ -337,7 +359,7 @@ def analyzeAndWriteToFile(path, compress, lowerHue, upperHue, baseWidth):
     CSVFile.close()
 
 if __name__ == '__main__':
-    analyzeAndWriteToFile(path, compress, lowerHue, upperHue, basewidth)
+    analyzeAndWriteToFile(path, compress, lowerHue, upperHue, minSat, basewidth)
     
 #http://stackoverflow.com/questions/25102461/python-rgb-matrix-of-an-image
 #https://opensource.com/life/15/2/resize-images-python
